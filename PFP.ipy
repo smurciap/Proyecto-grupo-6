@@ -1,0 +1,30 @@
+#Librerias
+from matplotlib.pyplot import *
+from numpy import *
+from scipy.integrate import odeint
+
+#Genera las gráficas dentro del mismo archivo, no ventanas extras
+%matplotlib inline
+
+# Definicion de E.D a resolver
+def df(y,t):
+    y1, y2= y[0], y[1] #variables de paso
+    dy1=y2  # derivada variable 1
+    dy2=-y1 # derivada variable 2, acuación a resolver
+    return [dy1,dy2]
+
+# Condiciones iniciales, para utilizar la funcion odeint
+y0 =[0,20]
+
+# Definicion del rango 
+t = linspace(-2*pi,2*pi,500)
+
+# solucion numerica
+sol = odeint(df, y0, t)
+y=sol[:,0] #toma el vector correspondiente a la solucion de y1
+
+plot(t,y)
+grid()
+xlabel('tiempo [t]')
+ylabel('θ(t)')
+show()
